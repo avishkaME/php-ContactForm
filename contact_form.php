@@ -5,15 +5,15 @@
   if (filter_has_var(INPUT_POST, 'submit')) {
     //echo "Submitted";
     //get form data
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $message = $_POST['message'];
+    $name = htmlspecialchars($_POST['name']);
+    $email = htmlspecialchars($_POST['email']);
+    $message = htmlspecialchars($_POST['message']);
 
     //check required fields
     if (!empty($email) && !empty($name) && !empty($message)) {
       // passed
       //check email
-      if (filter_var($email, FILTER_VALIDATE_EMAIL === false)) {
+      if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
         // failed
         $msg = 'please use a valid email!!';
         $msgClass = 'alert-danger';
@@ -55,15 +55,15 @@
       <form class="" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
         <div class="form-group">
           <label for="">Name</label>
-          <input type="text" name="name" value="" class="form-control">
+          <input type="text" name="name" value="<?php echo isset($_POST['name']) ? $name : ''; ?>" class="form-control">
         </div>
         <div class="form-group">
           <label for="">Email</label>
-          <input type="text" name="email" value="" class="form-control">
+          <input type="text" name="email" value="<?php echo isset($_POST['email']) ? $email : ''; ?>" class="form-control">
         </div>
         <div class="form-group">
           <label for="">Message</label>
-          <textarea name="message" rows="8" cols="80" class="form-control"></textarea>
+          <textarea name="message" rows="8" cols="80" class="form-control"><?php echo isset($_POST['message']) ? $message : ''; ?></textarea>
         </div>
         <br>
         <button type="submit" name="submit" class="btn btn-primary">Submit</button>
