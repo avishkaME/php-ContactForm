@@ -12,6 +12,14 @@
     //check required fields
     if (!empty($email) && !empty($name) && !empty($message)) {
       // passed
+      //check email
+      if (filter_var($email, FILTER_VALIDATE_EMAIL === false)) {
+        // failed
+        $msg = 'please use a valid email!!';
+        $msgClass = 'alert-danger';
+      }else {
+        // passed
+      }
     }else {
       // failed
       $msg = 'fill all feilds!!';
